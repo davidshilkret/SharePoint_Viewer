@@ -15,16 +15,15 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.5.141/pdf.min.js"></script>
     <script>
         // Specify the URL of the PDF document
+        const pdfUrl = 'DD-2875 Access Request.pdf'; // Change this to your PDF file path
         const pdfUrl = 'https://dtecho365.sharepoint.com/sites/ServiceNowDev1/_layouts/15/Embed.aspx?UniqueId=ddfa4173-d98a-48b3-b20d-062f1dda594d';
-
+        //alert(pdfUrl);
         // Set the workerSrc property to load the PDF.js worker from the CDN
         pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.5.141/pdf.worker.min.js';
 
         // Asynchronous function to load and render the PDF
         async function renderPDF(url) {
-            const response = await fetch(url, { mode: 'no-cors' });
-            const pdfData = await response.arrayBuffer();
-            const pdf = await pdfjsLib.getDocument({ data: pdfData }).promise;
+            const pdf = await pdfjsLib.getDocument(url).promise;
             const page = await pdf.getPage(1);
 
             const scale = 1.5;
